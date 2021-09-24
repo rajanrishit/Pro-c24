@@ -22,7 +22,7 @@ function setup() {
   world = engine.world;
 
   angleMode(DEGREES);
-
+angle=15;
   var options = {
     isStatic: true
   };
@@ -33,13 +33,21 @@ function setup() {
   player = Bodies.rectangle(250, playerBase.position.y - 160, 50, 180, options);
   World.add(world,player)
 
-  playerArcher = new PlayerArcher(
+  playerArcher = new playerArcher(
     340,
-    playerBase.position.y - 112,
+    playerArcher.position.y - 112,
     120,
     120
   );
+
 }
+arrow = new PlayerArrow(
+  playerArcher.body.position.x,
+  playerArcher.body.position.y,
+  100,
+  10
+);
+
 
 function draw() {
   background(backgroundImg);
@@ -48,10 +56,15 @@ function draw() {
   image(baseimage,playerBase.position.x,playerBase.position.y,180,150)
   image(playerimage,player.position.x,player.position.y,50,180)
 
+  
+
+  if (keyCode === 32) {
+    arrow.shoot(playerArcher.body.angle);
+  }
+
+
   playerArcher.display();
-if(keyCode===32){
-  PlayerArcher.shot(PlayerArcher.body.angle);
-}
+arrow.display();
   // Title
   fill("#FFFF");
   textAlign("center");
